@@ -1,0 +1,38 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .idol {
+      border-color: rgb(245, 9, 225);
+      
+      background: linear-gradient(0deg,transparent,#2196f3);
+      
+    }
+
+</style>
+ <style>
+   .n:hover{
+   box-shadow: 0px 0px 20px rgb(56, 1, 255)  ;
+   }
+ </style>
+<div class="container">
+    <div class="row">
+        {% for category in categories %}
+        <div class="col s12 m5 l5">
+            <div class="card hoverable large black n">
+              <div class="card-image">
+                <img src ='/{{ category.img }}'>
+                <span class="card-title yellow accent-3">{{ category.category_name|upper }}</span>
+              </div>
+              <div class="card-content cyan-text text-darken-4">
+                <p>{{ category.category_info|linebreaksbr|truncatechars:100 }}</p>
+              </div>
+              <div class="card-action">
+                <a href="/{{ category.category_slug }}">See...</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

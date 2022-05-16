@@ -1,0 +1,3 @@
+To start the site go to the console, in the console go to the folder with the file manage.py.
+Then at the command prompt, type python manage.py runserver.
+                                                              Good luck               

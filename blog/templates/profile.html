@@ -1,0 +1,43 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+    <style>
+        .j {
+         color: rgb(70, 142, 236); /* Цвет текста */
+        }
+        IMG.displayed {
+         display: block;
+         margin-left: auto;
+         margin-right: auto }
+        
+   .n:hover{
+   box-shadow: 0px 0px 20px rgb(56, 1, 255)  ;
+   }
+
+       </style>
+<style>
+    .wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+
+    <div class="container panel yellow  n j"> 
+        <div class="row"> 
+            <h1 class = "j center">Profile of {{user.username}}</h1>
+            <IMG class="circle n  center displayed" src ='/{{profile.avatar}}'>
+            <h1 class="center">{{profile.about}}</h1>
+        </div>
+        <div class = "row center" >
+            <form action = "/profile/" class = "center" method = "POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ profile_form.as_p }}
+                {{ user_form.as_p }}
+                <button class="btn waves-effect waves-light center" type="submit">
+                    <i class="material-icons">check</i></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

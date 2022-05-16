@@ -1,0 +1,29 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+<style>
+    .j {
+     color: rgb(70, 142, 236); /* Цвет текста */
+    }
+        IMG.displayed {
+         display: block;
+         margin-left: auto;
+         margin-right: auto }
+       </style>
+
+
+
+<div class="container panel yellow  j"> 
+    <div class="container"> 
+        <div class="row"> 
+            <from action="" class = "center"></from>
+            <h1 class = "j center">Profile of {{profile.user.username}}</h1>
+            <img class="circle n  center displayed" src ='/{{profile.avatar}}'>
+            <h1 class="center">{{profile.about}}</h1>
+        </div>
+        <div class = "row center" >
+        </div>
+        </div>
+    </div>
+{% endblock %}

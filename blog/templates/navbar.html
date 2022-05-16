@@ -1,0 +1,542 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset='utf-8'>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'css/materialize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidenav.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>project</title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems, {});
+      var el2  = document.querySelectorAll('.dropdown-trigger');
+      var drop_init = M.Dropdown.init(el2, {"closeOnClick": false, "constrainWidth": false});
+       });
+       </script>
+    <style>
+     .white {
+      background-image: url('https://abrakadabra.fun/uploads/posts/2021-12/1639056663_2-abrakadabra-fun-p-oboi-na-rabochii-stol-dlya-ded-insaidov-2.jpg');
+     }
+    </style>
+     <style>
+        .n{
+          background: rgb(250, 249, 249);
+        }
+        .l{
+          background: rgb(231, 255, 14);
+        }
+    </style>
+    <style type = "text/css">
+      body {
+        background-color:BlancedAlmond
+      }
+      .fon_scroll {
+
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-image: url('https://funart.pro/uploads/posts/2021-12/1640418882_3-funart-pro-p-foni-na-temu-tekhnologii-3.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+    </style>
+    <style>.body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Consolas;
+    }
+    .button {
+        position: relative;
+        display: inline-block;
+        padding: 0px 30px;
+        color: #2196f3;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 24px;
+        letter-spacing: 4px;
+        overflow: hidden; 
+        transition: 0.2s;
+    
+       }
+    .button__line {
+      position: absolute;
+      display: block;
+    }
+    .button__line--top {
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg,transparent,#2196f3);
+    }
+    .button:hover .button__line--top {
+      left: 100%;
+      transition: 1s;
+      transition-delay: 0.25s;
+    }
+    .button__line--bottom {
+      bottom: 0;
+      right: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(270deg,transparent,#2196f3);
+    }
+    .button:hover .button__line--bottom {
+      right: 100%;
+      transition: 1s;
+      transition-delay: 0.25s;
+    }
+    .button__line--left {
+      bottom: -100%;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(0deg,transparent,#2196f3);
+    }
+    .button:hover .button__line--left {
+      bottom: 100%;
+      transition: 1s;
+      transition-delay: 0s;
+    }
+    .button__line--right {
+      top: -100%;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(1800deg,transparent,#2196f3);
+    }
+    .button:hover .button__line--right {
+      top: 100%;
+      transition: 1s;
+      transition-delay: 0s;
+    }
+    .button:hover {
+      box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+      background-color: #2196f3;
+      color: #333;
+      transition-delay: 1s;
+    }
+    </style>
+ 
+          
+</head>
+<body >
+  <selection>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </selection>
+  
+
+  <ul id="slide-out" class="sidenav nav-wrapper blue-grey darken-3
+  ">
+  
+    <li><div class="user-view " >
+        <div class="background blue-grey darken-3
+        ">
+          
+        </div>
+        <a href="/profile/"><img class="circle n" src="/{{user.profile.avatar}}"></a>
+        <a href="#name"><span class="blue-text name ">{{user.username}}</span></a>
+        <a href="#email"><span class="yellow-text email">{{user.email}}</span></a>
+      </div></li>
+      <!--<li><a onclick="setBg();" class = "yellow-text">Change wallpaper</a></li>-->
+      <!--<li><a class = "yellow-text " href="/chat/4">Chatroom</a></li>-->
+      <li><a class = "yellow-text" href="/profile/">Edit profile</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader blue-text">
+        Hello world!</a></li>
+
+    </ul>
+
+
+</ul>
+    </div></li>
+  </ul>
+    <nav>
+        <div class="nav-wrapper yellow accent-3
+        ">
+
+        <body class="fon_scroll">
+          <a href="/" class="brand-logo blue-text text-light-4">NewProject</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down yellow-text text-darken-4">
+            <li>
+
+                <form class="" id="search_nav" method=POST action="{% url 'search_post' %}">
+                    {% csrf_token %}
+                    <input type="search" name="searchpost"
+                    placeholder="Search for an article">
+                </form>
+            </li>
+            <li>
+    
+              <li>
+                <button class="btn waves-effect waves-light"
+                 form="search_nav"
+                 type="submit" >search</button>
+            </li>
+                 <ul class="right hide-on-med-and-down">
+                   <!--
+                    <a href="/" class="button">
+                  
+                      <span class="button__line button__line--top"></span>
+                      <span class="button__line button__line--right"></span>
+                      <span class="button__line button__line--bottom"></span>
+                      <span class="button__line button__line--left"></span>
+                      <i class="material-icons">home</i></button>
+                    </a>
+                    {% if not user.is_authenticated %}
+                    <a href="/login" class="button">
+      
+                        <span class="button__line button__line--top"></span>
+                        <span class="button__line button__line--right"></span>
+                        <span class="button__line button__line--bottom"></span>
+                        <span class="button__line button__line--left"></span>
+                        <i class="material-icons">person</i></button>
+                      </a>
+                      {% else %}
+                      <a href="/logout" class="button">
+                    
+                        <span class="button__line button__line--top"></span>
+                        <span class="button__line button__line--right"></span>
+                        <span class="button__line button__line--bottom"></span>
+                        <span class="button__line button__line--left"></span>
+                        <i class="material-icons">keyboard_backspace
+                        </i></button>
+                      </a>
+                      {% endif %}
+                      
+                      <a href="/register" class="button">
+                    
+                        <span class="button__line button__line--top"></span>
+                        <span class="button__line button__line--right"></span>
+                        <span class="button__line button__line--bottom"></span>
+                        <span class="button__line button__line--left"></span>
+                        <i class="material-icons">person_add
+                        </i></button>
+
+                    </a>
+                  </a>
+              </a>
+                    <ul class="right hide-on-med-and-down">
+                      <a href="https://t.me/+TiETo1DGbzxmNTJi" class="button">
+                    
+                        <span class="button__line button__line--top"></span>
+                        <span class="button__line button__line--right"></span>
+                        <span class="button__line button__line--bottom"></span>
+                        <span class="button__line button__line--left"></span>
+                        <i class="material-icons">near_me</i></button>
+                      </a>
+                      <ul class="right hide-on-med-and-down">
+
+                      
+                    </ul>
+                    </a>
+                    </ul>
+                    -->
+                 </ul>
+                    <script>
+let swithMode = document.getElementsById('switch-mode');
+swithMode.onclick = function() {
+  let theme =
+                    </script>
+                    <body>
+
+
+</body>
+                    <a href="/" class="button">
+                  
+                      <span class="button__line button__line--top"></span>
+                      <span class="button__line button__line--right"></span>
+                      <span class="button__line button__line--bottom"></span>
+                      <span class="button__line button__line--left"></span>
+                      <i >Home</i></button>
+                    </a>
+                    
+                    {% if not user.is_authenticated %}
+                    <a href="/login" class="button">
+      
+                        <span class="button__line button__line--top"></span>
+                        <span class="button__line button__line--right"></span>
+                        <span class="button__line button__line--bottom"></span>
+                        <span class="button__line button__line--left"></span>
+                        <i >Login</i></button>
+                      </a>
+                      <a href="/register" class="button">
+                    
+                    <span class="button__line button__line--top"></span>
+                    <span class="button__line button__line--right"></span>
+                    <span class="button__line button__line--bottom"></span>
+                    <span class="button__line button__line--left"></span>
+                    <i > Register
+                    </i></button>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                      <a href="/logout" class="button">
+                    
+                        <span class="button__line button__line--top"></span>
+                        <span class="button__line button__line--right"></span>
+                        <span class="button__line button__line--bottom"></span>
+                        <span class="button__line button__line--left"></span>
+                        <i >Logout
+                        </i></button>
+                      </a>
+                      <a href="/register" class="button">
+                    
+                    <span class="button__line button__line--top"></span>
+                    <span class="button__line button__line--right"></span>
+                    <span class="button__line button__line--bottom"></span>
+                    <span class="button__line button__line--left"></span>
+                    <i > Add account
+                    </i></button>
+                      {% endif %}
+                      
+
+                    </a>
+                  </a>
+              </a>
+
+                    </a>
+                    </ul>
+                    
+                    <a class = 'dropdown-trigger btn show-on-small show-on-medium hide-on-med-and-up right hide-on-med-and-down yellow-text text-darken-4' href='#' data-target='dropdown1'>Menu</a>
+                    
+                    <ul class = "dropdown-content yellow " id = "dropdown1">
+                      
+                      
+                      <a href = "https://t.me/+TiETo1DGbzxmNTJi"class="button">
+                        
+                        
+                  
+                  <i >TG</i></button>
+                </a>
+
+                    <a href="/" class="button">
+                  
+  
+                      <i >Home</i></button>
+                    </a>
+                    
+
+                    
+                    {% if not user.is_authenticated %}
+                    <a href="/login" class="button">
+      
+
+                        <i >Login</i></button>
+                      </a>
+                      <a href="/register" class="button">
+                    
+
+                    <i > Register
+                    </i></button>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                      <a href="/logout" class="button">
+                    
+
+                        <i >Logout
+                        </i></button>
+                      </a>
+                      <a href="/register" class="button">
+                    
+
+                    <i > Add account
+                    </i></button>
+                      {% endif %}
+                      
+
+                    </a>
+                  </a>
+              </a>
+
+                    </a>
+                    </ul>
+
+
+                      </ul>
+                    
+        </div>
+        <!--Тут все починається css і javascript-->
+        <style>
+
+body {
+
+    background: black no-repeat center;
+
+    height: 100vh;
+
+    margin: 0;
+
+}
+
+
+
+@media (max-width: 1200px) {
+  body.night {
+    -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEFx-eGlQJ0CVSyYjedjma5Vc3ZUNMGtqiVQ&usqp=CAU');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+}
+
+
+    body.day {
+      -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-image: url('https://abrakadabra.fun/uploads/posts/2021-12/1639056663_2-abrakadabra-fun-p-oboi-na-rabochii-stol-dlya-ded-insaidov-2.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+
+
+
+@media not all and (max-width: 1200px) {
+  body.night {
+    -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEFx-eGlQJ0CVSyYjedjma5Vc3ZUNMGtqiVQ&usqp=CAU');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+}
+    body.day {
+
+      -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-image: url('https://abrakadabra.fun/uploads/posts/2021-12/1639056663_2-abrakadabra-fun-p-oboi-na-rabochii-stol-dlya-ded-insaidov-2.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+    
+
+
+
+
+button {
+
+    border-radius: .5em;
+
+    margin: 1em;
+
+    padding: 1em;
+
+    --color: #f06;
+
+    font: bold 1.5em sans-serif;
+
+    border: .25em solid var(--color);
+
+    color: var(--color);
+
+    background: white;
+
+    transition: 300ms;
+
+}
+
+
+
+button:hover, button:focus {
+
+    color: white;
+
+    box-shadow: inset 0 0 0 2em var(--color);
+
+}
+
+
+
+</style>
+
+<script>
+
+
+
+var count = 0;
+
+ 
+
+function setBg() {
+    document.body.classList.toggle("night", count % 2 === 1);
+    document.body.classList.toggle("day", count % 2 === 1);
+
+    count++;
+
+}
+
+
+
+document.addEventListener("DOMContentLoaded", setBg);
+
+
+
+</script>
+      </nav>
+      </div>
+
+        </div>
+      </body>
+      <body class="fon_scroll">
+      {% if user.is_authenticated %}
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <body class="fon_scroll">
+
+
+    {% endif %}
+
+
+    {% block content %}
+    {% endblock %}
+    
+    {% if messages %}
+        {% for msg in messages %}
+ 
+
+
+            <script>
+                  M.AutoInit();
+                  {% if msg.tags == 'error' %}
+                      M.toast({html: "{{msg}}", classes: "orange", displayLength:15000});
+                  {% elif msg.tags == 'success' %}
+                      M.toast({html: "{{msg}}", classes: "green", displayLength:15000});
+                  {% elif msg.tags == 'info' %}
+                      M.toast({html: "{{msg}}", classes: "blue", displayLength:15000});
+                  {% endif %}
+              </script>\
+              <script>
+                function play() {
+                  var audio = new Audio("/mp3/278714-tokyo-ghoul-tokijskij-gul-opening.mp3");
+                  audio.play();
+                }
+              </script>
+            {% endfor %}
+          {% endif %}

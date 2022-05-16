@@ -1,0 +1,98 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+<style>
+    .aligncenter {
+        text-align: center;
+    }
+    </style>
+      <style>
+        .j {
+         color: rgb(239, 255, 17); /* Цвет текста */
+        }
+       </style>
+<style>
+    .n:hover{
+    box-shadow: 0px 0px 20px rgb(56, 1, 255)  ;
+    }
+    IMG.displayed {
+         display: block;
+         margin-left: auto;
+         margin-right: auto }
+  </style>
+    <div class="container">
+        <div class = "row">
+            <div class = "col s12 m10 l15">
+                
+                <div class="panel blue n yellow-text ">
+                    <span text-align="" display="block">
+                        <IMG class="center-align responsive-img" src ='/{{ post.img }}'>
+                    </span>
+                    <h3 class="center-align">{{post.title}}</h3>
+                    <p class ="center-align flow-text"> 
+                        <span class="yellow-text">
+                        {{post.text}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            {% include "sidebar.html" %}
+        </div>
+         
+        {% if user.is_authenticated %}
+        <div class="row">
+            <form  action="{% url 'like_post' post.id %}" id="like_form" method="POST">
+                {% csrf_token %}
+                <button type="submit", class="btn" value = '{{post.id}}' name ="post_id">
+                <i class="medium material-icons">thumb_up</i>
+            </button>
+            </form>
+            <strong>{{ likes_num }} Like{{ likes_num|pluralize }}</strong>
+            
+            <form action="{% url 'dislike_post' post.id %}" id="dislike_form" method="POST">
+                {% csrf_token %}
+            <button type="submit", class="btn" value = '{{post.id}}' name ="post_id">
+                <i class="medium material-icons">thumb_down</i>
+            </button>
+            </form>
+            
+            <strong>{{ dislikes_num }} Dislike{{ dislikes_num|pluralize }}</strong>
+
+
+        </div>
+    <div class="panel white n">
+        <div class = "row">
+            <form method="POST">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+        <button class="btn waves-effect waves-light  aligncenter"
+             type="submit">
+             Publish</button>
+            </form>
+        </div>
+        {% endif %}
+        {% for comment in comments %}
+        {% if user.is_authenticated %}
+            <div class="row n" color="white">
+<a href = "{% url 'look_profile' comment.author.username %}"><img class="circle n" src="/{{comment.author.profile.avatar}}" alt=""></a>
+
+               
+                <h4 href="profile/"><img class="center-align responsive-img" > {{comment.author}} </p></h4>                 
+                <p>{{comment}} (comment was written {{comment.date_posted}})</p>
+
+                
+            </div>
+            {% else %}
+            <p class = 'j'>You cannot write comments and evaluate the post if<a href="/login"><strong>
+                you are not logged in</strong>
+            </a>, or          <a href="/register">
+                did not register</a></p> 
+                
+            {% endif %}
+            
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

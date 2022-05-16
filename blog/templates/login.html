@@ -1,0 +1,40 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<style>
+    .n:hover{
+    box-shadow: 0px 0px 20px rgb(56, 1, 255)  ;
+    }
+  </style>
+  <script> 
+    M.AutoInit();
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    console.log(elems);
+    var instances = M.Collapsible.init(elems);
+    });
+  </script>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="panel yellow  yellow-text ">
+                <div class="row">
+                    <p class="red-text">{{field.errors}}</p>
+                    <p class="black-text">{{field.label_tag}}</p>
+                    <div class="input-field col s12">
+                        {{field}}
+                        <span class="helper-text"> {{field.helper_text}}</span>
+                    </div>
+                </div>
+            {% endfor %}
+            <button class="btn waves-effect waves-light" 
+             type="submit"><i class="material-icons">check</i></button>
+        </form>
+        <p class=" black-text ">Don't have an account yet? Register
+            <a href="/register">
+                here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
