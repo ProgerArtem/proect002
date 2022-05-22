@@ -1,0 +1,181 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+<div class="row">
+    
+    <div class="col s4 m2 l2 sidenav-fixed">
+        <div class="row valign-wrapper">
+        <div></div>
+        <form class="" id="search_user" method=POST action="{% url 'search_user' %}">
+            {% csrf_token %}
+            <input type="search" name="searchuser"
+            placeholder="Шукати користувача">
+        </form>
+        <button class="btn waves-effect waves-light"
+        form="search_user"
+        type="submit" >search</button>
+        </div>
+        {% for user_ in users %}
+        {% if user_ == other_user %}
+        <div class="row valign-wrapper yellow lighten-4">
+            {% else %}
+            <div class="row valign-wrapper  lighten-4">
+                {% endif %}
+            <div class="col s4">
+                <a href="/chat/{{user_.pk}}"><img src="/{{user_.profile.avatar}}" alt="" class="circle responsive-img">
+                </a>
+            </div>
+            <div class="col s8">
+              <span class="black-text">
+                <a href="/chat/{{user_.pk}}">{{user_.username}}</a>
+               
+              </span>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+
+    <div class="container">
+        <div class="container">
+    <div class="col s8 m12 l12">
+        <div class="row valign-wrapper">
+            <div class="col s10">
+                <a href="{% url 'look_profile' other_user.username %}">
+                    <img src="/{{other_user.profile.avatar}}" alt="" class="circle responsive-img">
+                </a>
+            </div>
+            <div class="col s8">
+              <span class="black-text">
+                <a href="{% url 'look_profile' other_user.username %}">{{other_user.username}}</a>
+               
+              </span>
+            </div>
+        </div>
+        <div id="message-area" class="col s8 m12 l12">
+            
+            
+            <div id="messages" class="row">
+            {% for message in user_messages %}
+            <div class="col s12 m12 l12">
+                <div class="card-panel {% if request.user == message.sender %} left teal lighten-2{% else %} right red lighten-2{%endif%}">
+                    <div class="card-content">
+                        <span class="card-title">{{message.sender.username}}</span>
+                        <p>{{message.message}}</p>
+                        <p>{{message.date_created}}</p>
+                    </div>
+                </div>   
+            </div>
+            
+            {% endfor %}
+            {% for message in messages %}
+            <div class="col s12 m12 l12">
+                <div class="card-panel teal lighten-2">
+                    <div class="card-content">
+                        <p class="left" >{{message.sender.username}}</p> 
+                        <p class="left">{{message.message}}</p> 
+                    </div>
+                </div>   
+            </div>
+
+            
+            {% endfor %}
+            </div>
+            <div class="row">
+                <div class="input-field col s10">
+                  <input id="message-input" type="text" data-length="1000">
+                </div>
+                <div class="col s2">
+                    <button id="send-btn"  class="btn waves-effect waves-light" type="submit" name="action">Відправити
+                        <i class="material-icons">add</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+</div>
+<script>
+    let message_send_btd = document.getElementById('send-btn');
+    let message_input = document.getElementById('message-input');
+    message_input.scrollIntoView()
+    function send_message(){
+        let message = message_input.value;
+        if (message === ""){
+            return;
+        }
+        message_input.value = "";
+        fetch("{% url 'chatroom-ajax' other_user.id %}", 
+        {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({"message": message}),
+        }).then(resp => resp.json()).then(messages => {
+            console.log("MESSAGES", messages);    
+            for (message of messages){
+                    show_message(message);
+                }           
+            }
+        ).catch(e => console.log("Error in fetch: " + e));
+    }
+    function load_messages(){
+        console.log("LOADING MESSAGES");
+        fetch("{% url 'chatroom-ajax' other_user.id%}", {
+            method: "GET",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        }).then(resp => resp.json()).then(messages => {
+            for (message of messages){
+                console.log("message: " + message);
+                show_message(message);
+            }
+        });
+    }
+            
+        
+
+   
+
+    function show_message(message){
+        console.log('loading...');
+        console.log(message);
+        let message_container = document.getElementById('messages');
+        let class_name = "right";
+        if (message.sent){
+            class_name = "left";
+        }
+        let parent_div = document.createElement('div');
+        parent_div.className = "col s12 m12 l12";
+        let div = document.createElement('div');
+        div.classList.add("card-panel", class_name, "teal", "lighten-2");
+        div.innerHTML = `
+                    <div class="card-content">
+                    <span class="card-title">${ message.sender }</span>
+                    <p>${ message.message }</p>
+                    <span>${ message.date_created }</span> 
+                    </div>
+                `;
+        parent_div.appendChild(div);
+        message_container.appendChild(parent_div);
+        div.scrollIntoView();
+    } 
+    message_send_btd.addEventListener('click', send_message);  
+    message_input.addEventListener('keypress', (e) => {
+        if (e.key === "Enter"){
+            send_message();
+        }
+    });
+    setInterval(load_messages, 5000);
+</script>
+
+{%endblock%}
